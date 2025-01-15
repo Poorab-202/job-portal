@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema(
            required:true
         },
         role:{
-            types:String,
+            type:String,
             enum:["student","recruiter"],
             required:true
         }
@@ -38,7 +38,7 @@ const userSchema = new mongoose.Schema(
             company:{type:mongoose.Schema.Types.ObjectId, ref:'Company'},
             profilePhoto:{
                 type:String,
-                dafault :""
+                default :""
             }
         }
     },{timestamps:true}

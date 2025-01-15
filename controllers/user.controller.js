@@ -27,7 +27,7 @@ export const register = async (req, res) => {
                 success: false
             })
         }
-        const hashedPassword = await bcrypt.hash(passowrd, 10); // const and let have scope limited to the block whereas var has global scope. 
+        const hashedPassword = await bcrypt.hash(password, 10); // const and let have scope limited to the block whereas var has global scope. 
 
         await User.create({
             fullName,
@@ -59,9 +59,9 @@ export const login = async (req, res) => {
 
     try {
 
-        const { email, password, role } = req.body();// getting credentials
+        const { email, password, role } = req.body;// getting credentials
 
-        if (!email || !password) // verifying if anything is missing
+        if (!email || !password || !role) // verifying if anything is missing
         {
             return res.status(400).json({
                 message: "email or password is missing",
@@ -69,7 +69,7 @@ export const login = async (req, res) => {
             })
         }
 
-        let user = User.findOne({ email }); // fetch the user using the email
+        let user = await User.findOne({ email }); // fetch the user using the email
         if (!user) {   // check if the user exist with that mail
             return res.status(400).json({
                 message: "user doesn't exist with this E-mail! please try another E-mail ID.",
@@ -77,7 +77,7 @@ export const login = async (req, res) => {
             })
         }
 
-        const isPasswordMatched = await bcrypt.compare(password, user.passowrd); // password verification
+        const isPasswordMatched = await bcrypt.compare(password, user.password); // password verification
         if (!isPasswordMatched) {
             return res.status(400).json({
                 message: "Wrong Password!",
@@ -230,26 +230,22 @@ export const logout = async (req, res) => {
 export const updateProfile = async (req, res) => {
     try {
 
-        const { fullName, email, phoneNumber, bio, skills } = req.body();
+        const { fullName, email, phoneNumber, bio, skills } = req.body;
         const file = req.file;
-        if (!fullName || !email || !phoneNumber || !bio || !skills) {
-            return res.status(400).json({
-                message: "something is missing",
-                success: false
-            });
-        }
-
 
 
         // cloudinary will come here
 
 
 
-        const skillsArray = skills.split(",");
+        let skillsArray;
+        if (skills) {
+            skillsArray = skills.split(",");
+        }
 
-        const userID = registerq.id; // middleware authentication
+        const userID = req.id; // middleware authentication
 
-        let user = await User.findOne({ email });
+        let user = await User.findOne({ userID });
 
         if (!user) {
             return res.status(400).json({
@@ -260,11 +256,12 @@ export const updateProfile = async (req, res) => {
 
         // updating user info
 
-        user.fullName = fullName;
-        user.email = email;
-        user.phoneNumber = phoneNumber;
-        user.bio = bio;
-        user.skills = skills;
+        if (fullName) user.fullName = fullName
+        if (email) user.email = email;
+        if (phoneNumber) user.phoneNumber = phoneNumber
+        if (bio) user.bio = bio
+        if (skills) user.skills = skills
+
 
         // resume will be implemented later
 
@@ -288,7 +285,7 @@ export const updateProfile = async (req, res) => {
     } catch (error) {
 
         res.status(500).json({
-            message: "An error occurred in login process!",
+            message: "An error occurred in update process!",
             success: false,
             error: error.message
         });
