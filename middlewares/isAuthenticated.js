@@ -12,7 +12,7 @@ const isAuthenticated = async (req, res, next) => {
             })
         }
 
-        const decode = await jwt.verify(token, process.env.SECRET_KEY);
+        const decode = jwt.verify(token, process.env.SECRET_KEY);
         if (!decode) {
             return res.status(401).json({
                 message: "Invalid token",
@@ -20,7 +20,8 @@ const isAuthenticated = async (req, res, next) => {
             })
         }
 
-        req.id = decode.userId;
+        req.id = decode.userID;
+        console.log("User ID set in middleware:", req.id); // Debug here
         next();
 
     } catch (error) {

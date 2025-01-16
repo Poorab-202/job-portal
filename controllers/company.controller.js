@@ -1,9 +1,18 @@
-import { Company } from "../models/company.model"
+import { Company } from "../models/company.model.js"
 
 export const registerCompany = async (req, res) => {
     try {
 
+
         const { companyName } = req.body;
+        console.log(req.id);
+        if (!req.id) {
+            return res.status(401).json({
+                message: "Unauthorized! User ID is missing.",
+                success: false
+            });
+        }
+
         if (!companyName) {
             return res.status(400).json({
                 message: "Company name is required!",
@@ -21,7 +30,7 @@ export const registerCompany = async (req, res) => {
 
         company = await Company.create({
             name: companyName,
-            userId: req.Id
+            userId: req.id
         })
 
         return res.status(201).json({
@@ -43,12 +52,11 @@ export const registerCompany = async (req, res) => {
 }
 
 // list of companies registered by recruiter 
-
 export const getCompany = async (req, res) => {
     try {
 
-        const userId = req.Id;
-        const companies = Company.find({ userId });
+        const userId = req.id;
+        const companies = await Company.find({ userId });
         if (!companies) {
             return res.status(404).json({
                 message: "Companies not found!",
@@ -66,7 +74,7 @@ export const getCompany = async (req, res) => {
     } catch (error) {
         console.log(error);
         return res.status(400).json({
-            message: "error in company registration process!",
+            message: "error in the process of getting the companies registered by the user!",
             error,
             success: false
         })
@@ -75,9 +83,10 @@ export const getCompany = async (req, res) => {
 
 export const getCompanyById = async (req, res) => {
     try {
-
+        
         const companyId = req.params.id;
-        const company = Company.findById({ companyId });
+        console.log(companyId);
+        const company = await Company.findById( companyId );
         if (!company) {
             return res.status(404).json({
                 message: "Company not found",

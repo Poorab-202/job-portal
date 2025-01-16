@@ -2,6 +2,7 @@ import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+
 // 1. Named Exports vs Default Exports
 // In JavaScript ES6 modules, there are two types of exports:
 
@@ -243,9 +244,10 @@ export const updateProfile = async (req, res) => {
             skillsArray = skills.split(",");
         }
 
-        const userID = req.id; // middleware authentication
-
-        let user = await User.findOne({ userID });
+        const userId = req.id; // middleware authentication
+        console.log(userId);
+        
+       let user=await User.findById(userId)
 
         if (!user) {
             return res.status(400).json({
