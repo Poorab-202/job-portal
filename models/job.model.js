@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 
+
+// always check if you have written types instead of type
+
 const jobSchema = new mongoose.Schema(
     {
         title: {
@@ -7,6 +10,14 @@ const jobSchema = new mongoose.Schema(
             required: true
         },
         description: {
+            type: String,
+            required: true
+        },
+        experienceLevel: {
+            type: Number,
+            required: true
+        },
+        position: {
             type: String,
             required: true
         },
@@ -27,7 +38,7 @@ const jobSchema = new mongoose.Schema(
             required: true
         },
         numberOfPositions: {
-            types: Number,
+            type: Number,
             required: true
         },
         company: {
@@ -48,5 +59,5 @@ const jobSchema = new mongoose.Schema(
         ]
     }, { timestamps: true });
 
-    
+
 export const Job = mongoose.model('Job', jobSchema);
