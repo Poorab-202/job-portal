@@ -1,5 +1,5 @@
-import { application } from "express";
-import mongoose, { mongo } from "mongoose";
+
+import mongoose from "mongoose";
 const applicationSchema = mongoose.Schema({
     job: {
         type: mongoose.Schema.Types.ObjectId,
@@ -7,7 +7,7 @@ const applicationSchema = mongoose.Schema({
         required: true
     }
     , applicant: {
-        type: mongoose.Schema.Types, ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
