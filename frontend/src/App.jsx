@@ -1,14 +1,32 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Signup from './components/auth/Signup'
+import Login from './components/auth/Login'
+import Home from './components/Home'
+
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home/>
+  },
+
+  {
+    path: "/login",
+    element: <Login/>
+  },
+  {
+    path: "/signup",
+    element: <Signup/>
+  }
+])
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-    <h6 className='text-red-500'>lets build job portal</h6>
+   <RouterProvider router ={appRouter}></RouterProvider>
     </>
   )
 }
