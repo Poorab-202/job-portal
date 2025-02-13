@@ -9,7 +9,7 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { USER_API_END_POINT } from '@/utils/constant';
 import { useDispatch, useSelector } from 'react-redux';
-import { setLoading } from '@/redux/authSlice';
+import { setLoading, setUser } from '@/redux/authSlice';
 import { Loader2 } from 'lucide-react';
 
 
@@ -42,6 +42,7 @@ export default function Login() {
       })
 
       if (res.data.success) {
+        dispatch(setUser(res.data.user));
         navigate("/");
         toast.success(res.data.message);
       }
@@ -67,12 +68,12 @@ export default function Login() {
           <div className='flex flex-col items-center'><h1 className='font-bold text-xl mb-5'>Login</h1></div>
           <div className='my-2'>
             <Label>E-mail</Label>
-            <Input type="email" value={input.email} name="email" onChange={changeEventHandler} placeholder="patel@gmail.com" />
+            <Input type="email" value={input.email} name="email" onChange={changeEventHandler} placeholder="abc@gmail.com" />
           </div>
 
           <div className='my-2'>
             <Label>Password</Label>
-            <Input type="text" value={input.password} name="password" onChange={changeEventHandler} placeholder="patel" />
+            <Input type="text" value={input.password} name="password" onChange={changeEventHandler} placeholder="XXXXXXXX" />
           </div>
           <div className='flex items-center gap-3'>
 
