@@ -3,6 +3,7 @@ import { Button } from './ui/button'
 import { Bookmark } from 'lucide-react'
 import { Avatar, AvatarImage } from './ui/avatar'
 import { Badge } from './ui/badge'
+import { Link } from 'react-router-dom'
 
 
 
@@ -30,13 +31,13 @@ export default function Job() {
         <p className='text-sm text-gray-600'>Mollit ipsum exercitation nulla culpa. Consequat commodo ullamco aliquip voluptate. Consequat commodo ullamco aliquip voluptate.</p>
       </div>
       <div className='flex items-center gap-2 mt-4'>
-      <Badge variant="ghost" className="text-blue-700 font-bold text-xs">12 positions</Badge>
-      <Badge variant="ghost" className="text-[#F83002] font-bold">Part time</Badge>
-      <Badge variant="ghost" className="text-[#7209b7] font-bold">24 LPA</Badge>
+        <Badge variant="ghost" className="text-blue-700 font-bold text-xs">12 positions</Badge>
+        <Badge variant="ghost" className="text-[#F83002] font-bold">Part time</Badge>
+        <Badge variant="ghost" className="text-[#7209b7] font-bold">24 LPA</Badge>
       </div>
       <div className='flex items-center gap-4 mt-4'>
-     <Button variant="outline" className="rounded-xl cursor-pointer">Save For Later</Button>
-     <Button className="bg-black text-white px-4 rounded-lg transition-all duration-300 hover:bg-gray-800 hover:scale-105 shadow-lg cursor-pointer">Details</Button>
+        <Button variant="outline" className="rounded-xl cursor-pointer">Save For Later</Button>
+        <Button className="bg-black text-white px-4 rounded-lg transition-all duration-300 hover:bg-gray-800 hover:scale-105 shadow-lg cursor-pointer"><Link to={"/description/"}>Details</Link></Button>
       </div>
     </div>
   )

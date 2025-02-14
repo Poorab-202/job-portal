@@ -6,28 +6,40 @@ import Login from './components/auth/Login'
 import Home from './components/Home'
 import Jobs from './components/JobsPage'
 import Browse from './components/Browse'
+import Profile from './components/Profile'
+import JobDescription from './components/JobDescription'
+
 
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <Home/>
+    element: <Home />
   },
 
   {
     path: "/login",
-    element: <Login/>
+    element: <Login />
   },
   {
     path: "/signup",
-    element: <Signup/>
+    element: <Signup />
   },
   {
-    path:"/jobs",
-    element:<Jobs></Jobs>
+    path: "/jobs",
+    element: <Jobs></Jobs>
   },
   {
-    path:"/browse",
-    element:<Browse></Browse>
+    path: "/description/:id",
+    element: <JobDescription></JobDescription>
+  },
+  {
+    path: "/browse",
+    element: <Browse></Browse>
+  }
+  ,
+  {
+    path: "/profile",
+    element: <Profile></Profile>
   }
 ])
 
@@ -36,7 +48,7 @@ function App() {
 
   return (
     <>
-   <RouterProvider router ={appRouter}></RouterProvider>
+      <RouterProvider router={appRouter}></RouterProvider>
     </>
   )
 }

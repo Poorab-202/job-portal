@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 export default function Navbar() {
-    const {user}=useSelector(store=>store.auth);
+    const { user } = useSelector(store => store.auth);
     return (
         <div div className='bg-white' >
             <div className='flex items-center justify-between mx-auto max-w-7xl h-16 px-12'>
@@ -53,7 +53,7 @@ export default function Navbar() {
 
                                         <div className='flex flex-col gap-1 text-gray-600 items-start'>
 
-                                            <div className='flex items-center gap-1'>  <User2></User2> <Button variant='link'>view profile</Button></div>
+                                            <div className='flex items-center gap-1'>  <User2></User2> <Button variant='link'><Link to="/profile">view profile</Link></Button></div>
                                             <div className='flex items-center gap-1'>   <LogOut></LogOut> <Button variant='link'>logout</Button> </div>
                                         </div>
                                     </div>
