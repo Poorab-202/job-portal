@@ -231,7 +231,11 @@ export const logout = async (req, res) => {
 export const updateProfile = async (req, res) => {
     try {
 
+
         const { fullName, email, phoneNumber, bio, skills } = req.body;
+        console.log(fullName,email,bio);
+        
+        
         const file = req.file;
 
 
@@ -241,7 +245,7 @@ export const updateProfile = async (req, res) => {
 
         let skillsArray;
         if (skills) {
-            skillsArray = skills.split(",");
+            skillsArray = skills.split(",").map(skill => skill.trim());
         }
 
         const userId = req.id; // middleware authentication
@@ -261,8 +265,8 @@ export const updateProfile = async (req, res) => {
         if (fullName) user.fullName = fullName
         if (email) user.email = email;
         if (phoneNumber) user.phoneNumber = phoneNumber
-        if (bio) user.bio = bio
-        if (skills) user.skills = skills
+        if (bio) user.profile.bio = bio
+        if (skills) user.profile.skills = skillsArray
 
 
         // resume will be implemented later

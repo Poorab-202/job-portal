@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from './shared/Navbar'
 import { Avatar } from './ui/avatar'
 import { AvatarImage } from '@radix-ui/react-avatar'
@@ -6,10 +6,13 @@ import { DockIcon, Mail, Pen, Phone } from 'lucide-react'
 import { Button } from './ui/button'
 import { Badge } from './ui/badge'
 import ApplicationsTable from './ApplicationsTable'
+import UpdateProfileDialog from './UpdateProfileDialog'
 
 const skills = ["c++", "GitHub", "web development", "docker"];
 
 export default function Profile() {
+
+    const [open, setOpen]= useState(false);
     return (
         <div>
 
@@ -27,7 +30,7 @@ export default function Profile() {
                             <p className='text-sm text-gray-600'>Fugiat velit adipisicing anim culpa cillum laboris sit culpa. Mollit reprehenderit consectetur et duis ullamco nulla sit aliqua voluptate.</p>
                         </div>
                     </div>
-                    <Button variant="outline" className="text-right hover:bg-gray-100 cursor-pointer"><Pen></Pen></Button>
+                    <Button onClick={()=>setOpen(true)} variant="outline" className="text-right hover:bg-gray-100 cursor-pointer"><Pen></Pen></Button>
                 </div>
                 <div className='flex gap-4 items-center mt-2'><Mail></Mail> <p>poorabpatel@gmail.com</p></div>
                 <div className='flex gap-4 items-center mt-2'> <Phone></Phone> <p>9278383254</p></div>
@@ -48,6 +51,8 @@ export default function Profile() {
                 <h1 className='text-xl font-medium mb-4 mx-auto text-center'>Applied Jobs</h1>
                 <ApplicationsTable></ApplicationsTable>
             </div>
+
+            <UpdateProfileDialog open={open} setOpen={setOpen}></UpdateProfileDialog>
         </div>
     )
 }
