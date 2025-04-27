@@ -7,11 +7,14 @@ import { Button } from './ui/button'
 import { Badge } from './ui/badge'
 import ApplicationsTable from './ApplicationsTable'
 import UpdateProfileDialog from './UpdateProfileDialog'
+import { useSelector } from 'react-redux'
+import store from '@/redux/store'
 
-const skills = ["c++", "GitHub", "web development", "docker"];
+
 
 export default function Profile() {
 
+    const {user} = useSelector(store=>store.auth);
     const [open, setOpen]= useState(false);
     return (
         <div>
@@ -26,20 +29,20 @@ export default function Profile() {
                             </AvatarImage>
                         </Avatar>
                         <div>
-                            <h1 className='text-lg'>Full Name</h1>
-                            <p className='text-sm text-gray-600'>Fugiat velit adipisicing anim culpa cillum laboris sit culpa. Mollit reprehenderit consectetur et duis ullamco nulla sit aliqua voluptate.</p>
+                            <h1 className='text-lg'>{user?.fullName}</h1>
+                            <p className='text-sm text-gray-600'>{user?.profile?.bio}</p>
                         </div>
                     </div>
                     <Button onClick={()=>setOpen(true)} variant="outline" className="text-right hover:bg-gray-100 cursor-pointer"><Pen></Pen></Button>
                 </div>
-                <div className='flex gap-4 items-center mt-2'><Mail></Mail> <p>poorabpatel@gmail.com</p></div>
-                <div className='flex gap-4 items-center mt-2'> <Phone></Phone> <p>9278383254</p></div>
+                <div className='flex gap-4 items-center mt-2'><Mail></Mail> <p>{user?.email}</p></div>
+                <div className='flex gap-4 items-center mt-2'> <Phone></Phone> <p>{user?.phoneNumber}</p></div>
                 <div className='mt-2'>
                     <h1>Skills</h1>
 
                     {
-                        skills.length !== 0 ?
-                            skills.map((element, index) => (
+                        user?.profile?.skills.length !== 0 ?
+                        user?.profile?.skills.map((element, index) => (
                                 <Badge variant={'ghost'} className="bg-black text-white mr-2">{element}</Badge>
                             )) : <span>NA</span>
                     }
