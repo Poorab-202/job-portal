@@ -47,7 +47,7 @@ export default function Profile() {
                             )) : <span>NA</span>
                     }
                 </div>
-                <div className='flex gap-4 items-center mt-3'><DockIcon></DockIcon><a className="hover:cursor-pointer underline">Resume</a></div>
+                <div className='flex gap-4 items-center mt-3'><DockIcon></DockIcon><a href={user?.profile?.resume} className="hover:cursor-pointer underline">{user?.profile?.resumeOriginalName}</a></div>
             </div>
 
             <div className='max-w-4xl mx-auto bg-white rounded-2xl mt-10'>

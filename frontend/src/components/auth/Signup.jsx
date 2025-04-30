@@ -9,8 +9,8 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { USER_API_END_POINT } from '@/utils/constant';
 import { useDispatch, useSelector } from 'react-redux';
-import store from '@/redux/store';
 import { setLoading } from '@/redux/authSlice';
+import { Loader2 } from 'lucide-react';
 
 
 export default function Signup() {
@@ -52,7 +52,7 @@ export default function Signup() {
         console.log(input);
 
         try {
-            dispatch(setLoading(ture));
+            dispatch(setLoading(true));
             const res = await axios.post(`${USER_API_END_POINT}/register`, fromData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -65,9 +65,11 @@ export default function Signup() {
                 navigate("/login");
                 toast.success(res.data.message);
             }
-        } catch (error) {
+        }
+         catch (error) {
             console.log(error);
-            toast.error(error.response.data.message);
+            const message = error?.response?.data?.message || "Something went wrong!";
+            toast.error(message);
         }
         finally {
             dispatch(setLoading(false));

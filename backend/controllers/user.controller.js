@@ -1,6 +1,8 @@
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import getDataUri from "../utils/datauri.js";
+import cloudinary from "../utils/cloudinary.js"
 
 
 // 1. Named Exports vs Default Exports
@@ -21,6 +23,22 @@ export const register = async (req, res) => {
                 success: false
             });
         }
+        const file = req.file;
+        if (file) {
+            try {
+                const fileUri = getDataUri(file);
+                console.log("fileUri length:", fileUri.content.length);
+                const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+                var profilePhotoUrl = cloudResponse.secure_url;
+            } catch (uploadErr) {
+                console.error("Cloudinary upload failed:", uploadErr);
+                return res.status(500).json({
+                    message: "File upload to Cloudinary failed.",
+                    success: false,
+                    error: uploadErr.message
+                });
+            }
+        }
         const user = await User.findOne({ email });
         if (user) {
             return res.status(400).json({
@@ -30,14 +48,25 @@ export const register = async (req, res) => {
         }
         const hashedPassword = await bcrypt.hash(password, 10); // const and let have scope limited to the block whereas var has global scope. 
 
-        await User.create({
-            fullName,
-            email,
-            phoneNumber,
-            password: hashedPassword,
-            role
-        })
-
+        try {
+            await User.create({
+                fullName,
+                email,
+                phoneNumber,
+                password: hashedPassword,
+                role,
+                profile: {
+                    profilePhoto: profilePhotoUrl,
+                }
+            });
+        } catch (dbErr) {
+            console.error("User DB creation failed:", dbErr);
+            return res.status(500).json({
+                message: "User creation failed.",
+                success: false,
+                error: dbErr.message
+            });
+        }
         res.status(201).json({
             message: "Account created successfully!",
             success: true
@@ -233,14 +262,16 @@ export const updateProfile = async (req, res) => {
 
 
         const { fullName, email, phoneNumber, bio, skills } = req.body;
-        console.log(fullName,email,bio);
-        
-        
+
         const file = req.file;
 
+        if (file) {
+            const fileUri = getDataUri(file);
+            console.log(fileUri.content.substring(0, 100));
 
-        // cloudinary will come here
-
+            var cloudResponse = await cloudinary.uploader.upload(fileUri.content, { resource_type: "raw" });
+            // cloudinary will come here
+        }
 
 
         let skillsArray;
@@ -250,8 +281,8 @@ export const updateProfile = async (req, res) => {
 
         const userId = req.id; // middleware authentication
         console.log(userId);
-        
-       let user=await User.findById(userId)
+
+        let user = await User.findById(userId)
 
         if (!user) {
             return res.status(400).json({
@@ -269,7 +300,10 @@ export const updateProfile = async (req, res) => {
         if (skills) user.profile.skills = skillsArray
 
 
-        // resume will be implemented later
+        if (cloudResponse) {
+            user.profile.resume = cloudResponse.secure_url;
+            user.profile.resumeOriginalName = file.originalname; // save the original file name
+        }
 
         await user.save(); // update user
 

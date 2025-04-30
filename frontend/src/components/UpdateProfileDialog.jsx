@@ -18,7 +18,8 @@ export default function UpdateProfileDialog({ open, setOpen }) {
         fullName: user?.fullName,
         email: user?.email,
         phoneNumber: user?.phoneNumber,
-        bio: user?.profile?.skills?.map(skill => skill),
+        bio: user?.profile?.bio,
+        skills: user?.profile?.skills?.map(skills => skills),
         file: user?.profile?.resume
     });
 
@@ -48,9 +49,10 @@ export default function UpdateProfileDialog({ open, setOpen }) {
         console.log(user);
 
         try {
+            setLoading(true);
             const res = await axios.post(`${USER_API_END_POINT}/profile/update`, formData, {
                 headers: {
-                    'content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data'
                 },
                 withCredentials: true
             });
@@ -66,6 +68,9 @@ export default function UpdateProfileDialog({ open, setOpen }) {
             } else {
                 toast.error("Something went wrong!");
             }
+        }
+        finally{
+            setLoading(false);
         }
         setOpen(false);
 
@@ -98,11 +103,11 @@ export default function UpdateProfileDialog({ open, setOpen }) {
                             </div>
                             <div className='grid grid-cols-4 items-center gap-4'>
                                 <Label htmlFor="skills" className="text-right">Skills</Label>
-                                <Input id="skills" name="skills" value={input.skill} onChange={changeEventHandler} className="col-span-3"></Input>
+                                <Input id="skills" name="skills" value={input.skills} onChange={changeEventHandler} className="col-span-3"></Input>
                             </div>
                             <div className='grid grid-cols-4 items-center gap-4'>
                                 <Label htmlFor="file" className="text-right">Resume</Label>
-                                <Input id="file" name="file" type="file" value={input.resume} onChange={fileChangeHandler} accept="application/pdf" className="col-span-3"></Input>
+                                <Input id="file" name="file" type="file"  onChange={fileChangeHandler} accept="application/pdf" className="col-span-3"></Input>
                             </div>
                         </div>
                         <DialogFooter>
