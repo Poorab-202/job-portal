@@ -40,7 +40,7 @@ export default function Navbar() {
                             user && user.role === "recruiter" ?
                                 <>
                                     <li><Link to="/admin/companies">Companies</Link></li>
-                                    <li><Link to="/admin/jobs">Jobs</Link></li>
+                                    <li><Link to="/admin/jobsPage">Jobs</Link></li>
                                 </>
                                 :
                                 <>

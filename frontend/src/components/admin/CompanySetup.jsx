@@ -1,6 +1,6 @@
 import { Button } from '../ui/button'
 import Navbar from '../shared/Navbar'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Loader2 } from 'lucide-react'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { useEffect, useState } from 'react'
@@ -9,9 +9,11 @@ import { COMPANY_API_END_POINT } from '../../utils/constant'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import { useSelector } from 'react-redux'
+import useGetCompanyById from '../../hooks/useGetCompanyById'
 
 export default function CompanySetup() {
   const params = useParams();
+  useGetCompanyById(params.id);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState(
@@ -81,7 +83,7 @@ export default function CompanySetup() {
       <div className="max-w-xl mx-auto my-10">
         <form onSubmit={submitHandler}>
           <div className='flex items-center gap-5 p-8'>
-            <Button className="flex items-center gap-2 font-semibold bg-black text-white px-4 rounded-lg transition-all duration-300 hover:bg-gray-800 hover:scale-105 shadow-lg cursor-pointer">
+            <Button onClick={()=>navigate("/admin/companies")} className="flex items-center gap-2 font-semibold bg-black text-white px-4 rounded-lg transition-all duration-300 hover:bg-gray-800 hover:scale-105 shadow-lg cursor-pointer">
               <ArrowLeft>
               </ArrowLeft>
               <span>Back</span>

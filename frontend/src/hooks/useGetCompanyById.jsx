@@ -1,10 +1,8 @@
 import { useEffect } from 'react'
 import axios from 'axios'
-import { JOB_API_END_POINT } from '../utils/constant'
 import { useDispatch } from "react-redux"
-import { setAllJobs } from "../redux/jobSlice"
 import {COMPANY_API_END_POINT} from "../utils/constant"
-import { setSingleCompany } from 'redux/companySlice'
+import { setSingleCompany } from '../redux/companySlice'
 
 export default function useGetCompanyById(companyId) {
   const dispatch = useDispatch()
