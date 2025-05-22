@@ -3,8 +3,6 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import getDataUri from "../utils/datauri.js";
 import cloudinary from "../utils/cloudinary.js"
-
-
 // 1. Named Exports vs Default Exports
 // In JavaScript ES6 modules, there are two types of exports:
 
@@ -255,8 +253,6 @@ export const logout = async (req, res) => {
 }
 
 
-
-
 export const updateProfile = async (req, res) => {
     try {
 
@@ -267,10 +263,7 @@ export const updateProfile = async (req, res) => {
 
         if (file) {
             const fileUri = getDataUri(file);
-            console.log(fileUri.content.substring(0, 100));
-
-            var cloudResponse = await cloudinary.uploader.upload(fileUri.content, { resource_type: "raw" });
-            // cloudinary will come here
+            var cloudResponse = await cloudinary.uploader.upload(fileUri.content);
         }
 
 

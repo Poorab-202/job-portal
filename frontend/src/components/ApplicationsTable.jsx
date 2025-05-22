@@ -22,7 +22,7 @@ export default function ApplicationsTable() {
                 </TableHeader>
                 <TableBody>
                     {
-                        allAppliedJobs.length <= 0 ? <span>You haven't applied any job yet.</span> : allAppliedJobs.map((Element, index) => (
+                        allAppliedJobs?.length <= 0 ? <span>You haven't applied any job yet.</span> : allAppliedJobs?.map((Element, index) => (
                             <TableRow key={index}>
                                 <TableCell>{Element?.createdAt.split("T")[0]}</TableCell>
                                 <TableCell>{Element?.job?.title}</TableCell>
