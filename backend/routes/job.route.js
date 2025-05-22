@@ -1,4 +1,4 @@
-import { postJob,getPostedJobs,getAllJobs,getJobById } from "../controllers/job.controller.js";
+import { postJob,getPostedJobs,getAllJobs,getJobById, searchJobs } from "../controllers/job.controller.js";
 import express from "express"
 import isAuthenticated from "../middlewares/isAuthenticated.js";
 
@@ -8,5 +8,6 @@ router.route("/post").post(isAuthenticated,postJob);
 router.route("/get").get(isAuthenticated,getAllJobs);
 router.route("/getmyjobs").get(isAuthenticated,getPostedJobs);
 router.route("/get/:id").get(isAuthenticated,getJobById);
+router.route('/search').get(isAuthenticated,searchJobs);
 
 export default router;

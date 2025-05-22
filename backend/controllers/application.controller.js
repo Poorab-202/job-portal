@@ -131,7 +131,6 @@ export const getApplicants = async (req, res) => {
 
 export const updateStatus = async (req, res) => {
     try {
-
         const { status } = req.body;
         const applicationId = req.params.id;
         if (!status) {
@@ -153,7 +152,7 @@ export const updateStatus = async (req, res) => {
 
         return res.status(200).json({
             message: "Status updated successfully!",
-            success: false
+            success: true
         });
 
     } catch (error) {

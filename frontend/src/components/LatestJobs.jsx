@@ -1,10 +1,12 @@
 import React from 'react'
 import LatestJobsCards from './LatestJobsCards';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 
 export default function LatestJobs() {
+ 
   const { allJobs } = useSelector(store => store.job)
   return (
     <div className='max-w-5xl mx-auto my-20'>

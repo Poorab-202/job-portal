@@ -28,7 +28,7 @@ const daysAgoFunction = (mongodbTime) =>{
       <div className='flex items-center gap-2 my-2'>
         <Button>
           <Avatar>
-            <AvatarImage src="https://imgs.search.brave.com/ZyNDsok-KqN5jBJ5XqiFz-Ja9ltWWIzEKh_m1aWyc-M/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly8xMDAw/bG9nb3MubmV0L3dw/LWNvbnRlbnQvdXBs/b2Fkcy8yMDE2LzEx/L05ldy1Hb29nbGUt/TG9nby00OTd4NTAw/LmpwZw">
+            <AvatarImage src={job?.company?.logo}>
             </AvatarImage>
           </Avatar>
         </Button>

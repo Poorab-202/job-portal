@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../shared/Navbar';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -66,7 +66,7 @@ export default function Signup() {
                 toast.success(res.data.message);
             }
         }
-         catch (error) {
+        catch (error) {
             console.log(error);
             const message = error?.response?.data?.message || "Something went wrong!";
             toast.error(message);
@@ -75,6 +75,11 @@ export default function Signup() {
             dispatch(setLoading(false));
         }
     }
+    const { user } = useSelector(store => store.auth);
+    useEffect(() => {
+        if (user) navigate("/")
+    }, [])
+
 
 
 

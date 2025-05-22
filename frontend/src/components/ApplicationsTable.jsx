@@ -1,9 +1,13 @@
 import React from 'react'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from './ui/table'
 import { Badge } from './ui/badge'
+import { useSelector } from 'react-redux'
 
 export default function ApplicationsTable() {
+    const { allAppliedJobs } = useSelector(store => store.job);
+
     return (
+
         <div>
 
             <Table>
@@ -18,12 +22,26 @@ export default function ApplicationsTable() {
                 </TableHeader>
                 <TableBody>
                     {
-                        [1, 2, 3, 4].map((Element, index) => (
+                        allAppliedJobs.length <= 0 ? <span>You haven't applied any job yet.</span> : allAppliedJobs.map((Element, index) => (
                             <TableRow key={index}>
-                                <TableCell>14/02/2025</TableCell>
-                                <TableCell>Software developer</TableCell>
-                                <TableCell>Google</TableCell>
-                                <TableCell className="text-right"><Badge variant="ghost" className={'bg-black text-white'}>Accepted</Badge></TableCell>
+                                <TableCell>{Element?.createdAt.split("T")[0]}</TableCell>
+                                <TableCell>{Element?.job?.title}</TableCell>
+                                <TableCell>{Element?.job?.company?.name}</TableCell>
+                                <TableCell className="text-right">
+                                    <Badge
+                                        variant="ghost"
+                                        className={`text-white ${Element?.status === "rejected"
+                                                ? "bg-red-600"
+                                                : Element?.status === "accepted"
+                                                    ? "bg-green-600"
+                                                    : "bg-gray-500"
+                                            }`}
+                                    >
+                                        {Element?.status.charAt(0).toUpperCase() + Element?.status.slice(1)}
+
+                                    </Badge>
+                                </TableCell>
+
                             </TableRow>
                         ))
                     }

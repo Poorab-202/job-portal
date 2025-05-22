@@ -76,47 +76,55 @@ export const getPostedJobs = async (req, res) => {
 
 //getAlljobs for user
 export const getAllJobs = async (req, res) => {
-    try {
-         console.log("hi");
-         
-        const keyword = req.query.keyword || "";
-        const query = {
-            $or: [
-                { title: { $regex: keyword, $options: "i" } },
-                { description: { $regex: keyword, $options: "i" } }
-            ]
-        }
+  try {
+    const jobs = await Job.find({}).populate("company");
 
-        const jobs = await Job.find(query).populate({ path: "company" }); // The populate function in Mongoose is used to automatically replace references (stored as ObjectIds) in a document with the actual data from the referenced document.
+    return res.status(200).json({
+      message: "All jobs fetched successfully!",
+      jobs,
+      success: true
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error fetching jobs",
+      success: false
+    });
+  }
+};
 
-        if (!jobs) {
-            return res.status(404).json({
-                message: "No job found!",
-                success: false
-            });
-        }
+export const searchJobs = async (req, res) => {
+  try {
+    const keyword = req.query.keyword || "";
+    console.log(keyword);
+    
+    const query = {
+      $or: [
+        { title: { $regex: keyword, $options: "i" } },
+        { description: { $regex: keyword, $options: "i" } }
+      ]
+    };
 
-        return res.status(201).json({
-            message: "Jobs found!",
-            jobs,
-            success: true
-        })
+    const jobs = await Job.find(query).populate("company");
 
+    return res.status(200).json({
+      message: "Searched jobs fetched successfully!",
+      jobs,
+      success: true
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error in search job process",
+      success: false
+    });
+  }
+};
 
-    }
-    catch (error) {
-        return res.status(400).json({
-            message: "Error in get job process",
-            success: false
-        });
-    }
-}
 
 //getJobById for user
 export const getJobById = async (req, res) => {
     try {
         const jobId = req.params.id;
-        const job = await Job.findById(jobId).populate({path:"company", path: "applications"});
+        const job = await Job.findById(jobId).populate({ path: "company", path: "applications" });
         if (!job) {
             return res.status(404).json({
                 message: "No job found!",
