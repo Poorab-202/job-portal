@@ -22,9 +22,9 @@ export default function Browse() {
     <div>
       <Navbar />
       <div className='max-w-6xl mx-auto my-10'>
-        <h1 className='font-medium text-lg my-6'>Search Results ({searchedJobs.length})</h1>
+        <h1 className='font-medium text-lg my-6'>Search Results ({searchedJobs?.length})</h1>
         <div className='grid grid-cols-3 gap-4'>
-          {searchedJobs.map((element) => (
+          {searchedJobs?.map((element) => (
             <Job key={element._id} job={element} />
           ))}
         </div>

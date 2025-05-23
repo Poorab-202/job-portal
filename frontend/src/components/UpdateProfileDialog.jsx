@@ -45,9 +45,6 @@ export default function UpdateProfileDialog({ open, setOpen }) {
             formData.append("file", input.file);
 
         }
-        console.log(USER_API_END_POINT);
-        console.log(user);
-
         try {
             setLoading(true);
             const res = await axios.post(`${USER_API_END_POINT}/profile/update`, formData, {
@@ -58,7 +55,6 @@ export default function UpdateProfileDialog({ open, setOpen }) {
             });
             if (res.data.success) {
                 dispatch(setUser(res.data.user));
-                console.log(res);
                 toast.success(res.data.message);
             }
         } catch (error) {
@@ -94,8 +90,8 @@ export default function UpdateProfileDialog({ open, setOpen }) {
                                 <Input id="email" name="email" type="email" value={input.email} onChange={changeEventHandler} className="col-span-3"></Input>
                             </div>
                             <div className='grid grid-cols-4 items-center gap-4'>
-                                <Label htmlFor="number" className="text-right">Phone Number</Label>
-                                <Input id="number" name="number" value={input.phoneNumber} onChange={changeEventHandler} className="col-span-3"></Input>
+                                <Label htmlFor="phoneNumber" className="text-right">Phone Number</Label>
+                                <Input id="phoneNumber" name="phoneNumber" value={input.phoneNumber} onChange={changeEventHandler} className="col-span-3"></Input>
                             </div>
                             <div className='grid grid-cols-4 items-center gap-4'>
                                 <Label htmlFor="bio" className="text-right">Bio</Label>

@@ -59,7 +59,7 @@ export default function Navbar() {
                                 <Link to="/signup"><Button className="bg-[#6A38C2] hover:bg-[#522a99] text-white rounded cursor-pointer">Signup</Button></Link>
                             </div>
                         ) : (
-                            <Popover>
+                            <Popover >
                                 <PopoverTrigger>
 
                                     <Avatar>
@@ -82,8 +82,8 @@ export default function Navbar() {
                                         </div>
 
                                         <div className='flex flex-col gap-1 text-gray-600 items-start'>
-                                            {user && user.role === "recruiter" ? <><div className='flex items-center gap-1'>   <LogOut></LogOut> <Button onClick={logoutHandler} variant='link'>logout</Button> </div></> : <><div className='flex items-center gap-1'>  <User2></User2> <Button variant='link'><Link to="/profile">view profile</Link></Button></div>
-                                                <div className='flex items-center gap-1'>   <LogOut></LogOut> <Button onClick={logoutHandler} variant='link'>logout</Button> </div></>}
+                                            {user && user.role === "recruiter" ? <><div className='flex items-center gap-1'>   <LogOut></LogOut> <Button className="cursor-pointer" onClick={logoutHandler} variant='link'>logout</Button> </div></> : <><div className='flex items-center gap-1'>  <User2></User2> <Button variant='link'><Link to="/profile">view profile</Link></Button></div>
+                                                <div className='flex items-center gap-1'>   <LogOut></LogOut> <Button className="cursor-pointer" onClick={logoutHandler} variant='link'>logout</Button> </div></>}
 
                                         </div>
                                     </div>

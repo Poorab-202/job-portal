@@ -77,7 +77,7 @@ export default function Login() {
 
           <div className='my-2'>
             <Label>Password</Label>
-            <Input type="text" value={input.password} name="password" onChange={changeEventHandler} placeholder="XXXXXXXX" />
+            <Input type="password" value={input.password} name="password" onChange={changeEventHandler} placeholder="XXXXXXXX" />
           </div>
           <div className='flex items-center gap-3'>
 

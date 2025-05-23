@@ -104,7 +104,7 @@ export default function Signup() {
                     </div>
                     <div className='my-2'>
                         <Label>Password</Label>
-                        <Input type="text" value={input.password} name="password" onChange={changeEventHandler} placeholder="patel" />
+                        <Input type="password" value={input.password} name="password" onChange={changeEventHandler} placeholder="patel" />
                     </div>
                     <div className='flex items-center gap-6'>
                         <div className='flex items-center gap-1'>

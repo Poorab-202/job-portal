@@ -160,7 +160,7 @@ function PostJob() {
                                         <SelectTrigger className="w-full focus-visible:ring-offset-0 focus-visible:ring-0 my-1">
                                             <SelectValue placeholder="Select a company" />
                                         </SelectTrigger>
-                                        <SelectContent className="z-[50]">
+                                        <SelectContent className="bg-white">
                                             <SelectGroup>
                                                 {companies.map((company) => (
                                                     <SelectItem key={company._id} value={company?.name?.toLowerCase()}>

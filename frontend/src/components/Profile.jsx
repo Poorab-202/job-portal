@@ -26,7 +26,7 @@ export default function Profile() {
                 <div className='flex justify-between'>
                     <div className='flex items-center gap-4 my-2'>
                         <Avatar className="h-20 w-20">
-                            <AvatarImage src='https://www.perfocal.com/blog/content/images/size/w960/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg' alt='profile'>
+                            <AvatarImage src={user?.profile?.profilePhoto} alt='profile'>
 
                             </AvatarImage>
                         </Avatar>

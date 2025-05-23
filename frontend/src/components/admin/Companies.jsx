@@ -16,7 +16,7 @@ export default function Companies() {
   useEffect(() => {
     dispatch(setSearchCompaniesByText(input));
   },[input])
-
+ 
   return (
     <div>
       <Navbar></Navbar>
