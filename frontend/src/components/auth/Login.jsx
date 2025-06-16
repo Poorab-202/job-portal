@@ -40,6 +40,8 @@ export default function Login() {
         ,
         withCredentials: true
       })
+      console.log(res.data.token);
+      localStorage.setItem("token", res.data.token);
 
       if (res.data.success) {
         dispatch(setUser(res.data.user));

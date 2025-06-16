@@ -120,83 +120,6 @@ export const login = async (req, res) => {
             })
         }
 
-        //         1. Equality (==)
-        // Compares values for equality but performs type coercion if the types are different.
-        // This means it will attempt to convert one or both operands to a common type before comparing.
-
-        // Example:
-
-        // console.log(5 == '5'); // true (string '5' is coerced to number 5)
-        // console.log(true == 1); // true (true is coerced to 1)
-        // console.log(null == undefined); // true (special case)
-        // console.log(0 == false); // true (0 is coerced to false)
-
-        // When to use:
-        // Rarely recommended due to potential confusion from type coercion.
-
-
-        //          2. Strict Equality (===)
-        // Compares both value and type without performing type coercion.
-        // If the types are different, the result is always false.
-
-        // Example:
-
-        // console.log(5 === '5'); // false (different types)
-        // console.log(5 === 5); // true (same value and type)
-        // console.log(false === 0); // false (different types)
-        // console.log(null === undefined); // false (different types)
-
-        // When to use:
-        // Always prefer strict equality (===) to avoid unexpected results due to type coercion.
-
-        // 3. Inequality Operators
-
-        // Loose Inequality (!=):
-        // Checks if two values are not equal, with type coercion.
-
-        // Example:
-
-        // console.log(5 != '5'); // false (string '5' is coerced to number 5)
-        // console.log(false != 0); // false (false is coerced to 0)
-        // console.log(null != undefined); // false (special case)
-
-        // Strict Inequality (!==):
-        // Checks if two values are not equal, without type coercion. Types must also be different.
-        // Example:
-
-        // console.log(5 !== '5'); // true (different types)
-        // console.log(5 !== 5); // false (same value and type)
-        // console.log(false !== 0); // true (different types)
-
-
-        // Special Cases to Note:
-
-        //1.  null and undefined:
-
-
-        // console.log(null == undefined); // true
-        // console.log(null === undefined); // false
-
-        // 2. NaN (Not-a-Number):
-
-        // "NaN" is not equal to anything, including itself.
-
-        // console.log(NaN == NaN); // false
-        // console.log(NaN === NaN); // false
-        // console.log(Object.is(NaN, NaN)); // true (use Object.is for precise checks)
-
-        // 3. Objects:
-
-        // Equality operators compare object references, not the contents.
-
-        // const obj1 = { a: 1 };
-        // const obj2 = { a: 1 };
-        // console.log(obj1 == obj2); // false
-        // console.log(obj1 === obj2); // false
-        // console.log(obj1 === obj1); // true (same reference)
-
-
-
         const tokenData = {
             userID: user._id
         }
@@ -209,13 +132,11 @@ export const login = async (req, res) => {
             role: user.role,
             profile: user.profile
         }
-        return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpsOnly: true, sameSit: 'strict' }).json({
+        return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpsOnly: true, sameSite: 'None', secure: true }).json({
             message: `Welcome back ${user.fullName}`,
             user,
             success: true
         })
-
-
 
     } catch (error) {
 
@@ -226,8 +147,6 @@ export const login = async (req, res) => {
         });
 
     }
-
-
 }
 
 

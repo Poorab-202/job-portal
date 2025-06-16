@@ -10,9 +10,15 @@ const useGetAllJobs = () => {
   useEffect(() => {
     const fetchAllJobs = async () => {
       try {
-        console.log(searchedQuery);
+
+        const token = localStorage.getItem("token");
+        const res = await axios.get(`${JOB_API_END_POINT}/get`, { withCredentials: true }, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        console.log(res);
         
-        const res = await axios.get(`${JOB_API_END_POINT}/get`, { withCredentials: true });
         if (res.data.success) {
           dispatch(setAllJobs(res.data.jobs));
         }
