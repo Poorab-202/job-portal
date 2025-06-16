@@ -20,8 +20,8 @@ JobEasy is a full-stack Job Portal built using the MERN stack (MongoDB, Express.
 ### 3. Recruiter Dashboard
 ![Dashboard](./screenshots/recruiter-dashboard.png)
 
-### 4. Resume Upload
-![Upload](./screenshots/resume-upload.png)
+### 4. Profile Page
+![Upload](./screenshots/profile.png)
 
 ---
 
