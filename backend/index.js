@@ -11,19 +11,15 @@ import applicationRoutes from "./routes/application.route.js"
 dotenv.config({});
 const app = express();
 
-app.use(cors({
-  origin: ["http://localhost:5173", "https://jobeasy-frontend.onrender.com"],
-  credentials: true,
-  exposedHeaders: ['Authorization']
-}));
 
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 const corsOptions = {
-    origin: 'http://localhost:5173',
-    credentials: true
+    origin: ['http://localhost:5173', "https://jobeasy-frontend.onrender.com"],
+    credentials: true,
+    exposedHeaders: ['Authorization']
 }
 app.use(cors(corsOptions));
 
